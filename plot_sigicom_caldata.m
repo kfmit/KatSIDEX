@@ -24,7 +24,8 @@ for ii=1:length(csv_files)
     % prep the data matrix appropriately:
     mat_len = size(Data_mat,1)+1;
     local_len = length(data_local.offset)
-    % orig: local_len = length(data_local.ts)
+    % original: local_len = length(data_local.ts)
+    
     %Data_mat(mat_len:mat_len+local_len,1:(length(Node_IDS))*3+1)=nan;
     % put in time data:
     time_posix=posixtime(datetime(data_local.offset,'InputFormat','yyyy-MM-dd HH:mm:ss.SSS'));
