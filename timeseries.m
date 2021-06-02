@@ -19,6 +19,9 @@ standalone_GPS =[
 Node_IDS=[103212,103637,103636,103208];
 Data_mat = zeros(1,4);
 
+% Note to self: may need to make a for loop for adding the offset onto the
+% epoch time to fix the errors
+
 %%
 for ii=1:length(csv_files)
     % read in data:
