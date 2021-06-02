@@ -29,8 +29,11 @@ for ii=1:length(csv_files)
 
     % prep the data matrix appropriately:
     mat_len = size(Data_mat,1)+1;
+    % WHat the living hell is OFFSET? possible the difference from the
+    % timestamp?
     local_len = length(data_local.offset)
     % orig: local_len = length(data_local.ts)
+    
     %Data_mat(mat_len:mat_len+local_len,1:(length(Node_IDS))*3+1)=nan;
     % put in time data:
     time_posix=posixtime(datetime(data_local.offset,'InputFormat','yyyy-MM-dd HH:mm:ss.SSS'));
@@ -73,8 +76,15 @@ for ii=1:length(csv_files)
         %hold on
         %plot(Data_mat(mat_len:mat_len+local_len-1,mat_idx))
         %pause
+        
     end
 end
-% Two: Plot all of these instances of triggering on a timeseries plto
 
-% Three: Plot all the instances WITH temperature data
+%% Two: Plot all of these instances of triggering on a timeseries plot
+
+% things I will probably want: x axis is date in day-mon-yr form, left y is
+% # of events on that day, right y is temperature maybe?
+
+%% Three: Plot all the instances WITH temperature data
+
+% pull the temp data that you used with the old graph
