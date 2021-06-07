@@ -19,7 +19,7 @@ standalone_GPS =[
 Node_IDS=[103212,103637,103636,103208];
 Data_mat = zeros(1,4);
 
-% Note to self: may need to make a for loop for adding the offset onto the
+% Note to self: may need to make an edit inside for loop for adding the offset onto the
 % epoch time to fix the errors
 
 %%
@@ -34,6 +34,11 @@ for ii=1:length(csv_files)
     mat_len = size(Data_mat,1)+1;
     % WHat the living hell is OFFSET? possible the difference from the
     % timestamp?
+    
+    % STEPS TO FIX
+    % 1) cut off the first part of every csv time
+    % 2) add the offset to the epoch time
+    
     local_len = length(data_local.offset)
     % orig: local_len = length(data_local.ts)
     
@@ -88,6 +93,38 @@ end
 % things I will probably want: x axis is date in day-mon-yr form, left y is
 % # of events on that day, right y is temperature maybe?
 
+% ONE: plot the N1
+
+% TWO: plot the N2
+
+% THREE: plot the N3
+
+% FOUR: plot the N4
+
+
+
 %% Three: Plot all the instances WITH temperature data
 
 % pull the temp data that you used with the old graph
+
+% FIVE: plot the temperature data
+%% Weather data read in DONT RUN AGAIN
+
+original_weather = readtable('SIDEx 2020 Weather.xlsx','Range','A2:D123');
+% top line of each is the name of the
+
+%% Weather data processing
+weather_date = original_weather.Jan; %(:,1); % first column is datetime
+weather_maxC = (5/9)*(original_weather.Max - 32);  % second column is max
+weather_minC = (5/9)*(original_weather.Min - 32); % fourth column is the MIN temp
+weather_avgC = (5/9)*(original_weather.Avg - 32);  % third column is AVG use this one
+
+
+%% weather plotting
+
+%yyaxis right 
+plot(datenum(weather_date), weather_avgC);
+title('Weather and Number of Events Per Day')
+ylabel('Average Temperature (C)')
+xlabel('Dates, 2020') 
+hold on
