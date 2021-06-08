@@ -135,7 +135,13 @@ weather_minC = (5/9)*(original_weather.Min - 32); % fourth column is the MIN tem
 weather_avgC = (5/9)*(original_weather.Avg - 32);  % third column is AVG use this one
 
 %% weather plotting
+<<<<<<< HEAD
 yyaxis right 
+=======
+% This plots on my laptop but not on the large one, need to figure out why
+
+%yyaxis right 
+>>>>>>> 9dcbd8b53e4e9e894b5a97b8039e6d49434afe69
 plot(datenum(weather_date), weather_avgC);
 title('Weather and Number of Events Per Day')
 datetick('x', 'dd-mmm-yyyy')
