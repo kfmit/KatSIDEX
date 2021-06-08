@@ -8,7 +8,9 @@ close all
 
 % One: Import all of the csv from Sigicom2020
 % At least their names, bc you can pull the timestamp from there
-csv_dir = '~/Downloads/SIDEX/data/raw_transients/Data_sigicom_2020/2510a436-69d3-4757-8f35-119bf88f566f/raw_transients/'
+% There are four folders within results_10 (N1-N4)
+csv_dir = '~/Downloads/SIDEX/data/raw_transients/Data_sigicom_2020/Processed_Data/results_10/N1'
+
 
 csv_files = dir([csv_dir '*.csv']);
 standalone_GPS =[
@@ -119,12 +121,11 @@ weather_maxC = (5/9)*(original_weather.Max - 32);  % second column is max
 weather_minC = (5/9)*(original_weather.Min - 32); % fourth column is the MIN temp
 weather_avgC = (5/9)*(original_weather.Avg - 32);  % third column is AVG use this one
 
-
 %% weather plotting
-
-%yyaxis right 
+yyaxis right 
 plot(datenum(weather_date), weather_avgC);
 title('Weather and Number of Events Per Day')
+datetick('x', 'dd-mmm-yyyy')
 ylabel('Average Temperature (C)')
 xlabel('Dates, 2020') 
 hold on
