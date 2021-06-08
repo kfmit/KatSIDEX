@@ -106,16 +106,12 @@ end
 
 
 %% Three: Plot all the instances WITH temperature data
-
-% pull the temp data that you used with the old graph
-
-% FIVE: plot the temperature data
 %% Weather data read in DONT RUN AGAIN
 
 original_weather = readtable('SIDEx 2020 Weather.xlsx','Range','A2:D123');
 % top line of each is the name of the
 
-%% Weather data processing
+% Weather data processing
 weather_date = original_weather.Jan; %(:,1); % first column is datetime
 weather_maxC = (5/9)*(original_weather.Max - 32);  % second column is max
 weather_minC = (5/9)*(original_weather.Min - 32); % fourth column is the MIN temp
