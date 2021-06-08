@@ -36,7 +36,7 @@ Data_mat = zeros(1,4);
 % Note to self: may need to make an edit inside for loop for adding the offset onto the
 % epoch time to fix the errors
 
-%%
+%% Use loop to read in all data from files
 for ii=1:length(csv_files)
     % read in data:
     data_local=readtable([csv_files(ii).folder '/' csv_files(ii).name]);
@@ -100,11 +100,14 @@ end
 
 %% Part 1.1: use the "csv_dir" names to establish points (datalocal has all the vlt for later)
 % Pull names
+eventimes=char.empty(size(csv_files),1);
+
 for i=1:size(csv_files)
+    eventtimes(i) = csv_files.name;
     
 end
         
-eventtimes = csv_files.name;
+
 
 
 %% Two: Plot all of these instances of triggering on a timeseries plot
@@ -134,14 +137,14 @@ weather_maxC = (5/9)*(original_weather.Max - 32);  % second column is max
 weather_minC = (5/9)*(original_weather.Min - 32); % fourth column is the MIN temp
 weather_avgC = (5/9)*(original_weather.Avg - 32);  % third column is AVG use this one
 
-%% weather plotting
-<<<<<<< HEAD
-yyaxis right 
-=======
-% This plots on my laptop but not on the large one, need to figure out why
+%% WORKS: weather plotting, ONLY RUN THIS ONE
 
-%yyaxis right 
->>>>>>> 9dcbd8b53e4e9e894b5a97b8039e6d49434afe69
+load('weather_data.mat');
+
+yyaxis right 
+
+% This plots on my laptop but not on the large one, need to figure out why
+yyaxis right 
 plot(datenum(weather_date), weather_avgC);
 title('Weather and Number of Events Per Day')
 datetick('x', 'dd-mmm-yyyy')
