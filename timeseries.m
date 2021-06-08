@@ -121,6 +121,7 @@ weather_avgC = (5/9)*(original_weather.Avg - 32);  % third column is AVG use thi
 
 
 %% weather plotting
+% This plots on my laptop but not on the large one, need to figure out why
 
 %yyaxis right 
 plot(datenum(weather_date), weather_avgC);
