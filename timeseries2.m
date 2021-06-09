@@ -115,41 +115,59 @@ for nodeindex=[1:4]
     
    %% internal for loop to pick apart names
     for i=1:size(csv_files)
-        title = csv_files(i).name;             % ith entry of event_name is a name from csv_files
-        divide_title = split(title,'_');       % divid the name by the '_' character
+        titlefile = csv_files(i).name;             % ith entry of event_name is a name from csv_files
+        divide_title = split(titlefile,'_');       % divid the name by the '_' character
         event_name(i) = divide_title{1};       % only save the date of occurance
         
     end
     
 end
 %% Hardcode way of doing above
+event_name = strings(size(csv_files1)); % change csv_files# as needed
 
     for i=1:size(csv_files1)
-        title = csv_files1(i).name;             % ith entry of event_name is a name from csv_files
-        divide_title = split(title,'_');       % divid the name by the '_' character
-        event_name(i) = string(divide_title{1});       % only save the date of occurance
+        titlefile = csv_files1(i).name;             % ith entry of event_name is a name from csv_files
+        divide_title = split(titlefile,'_');       % divid the name by the '_' character
+        event_name(i) = string(divide_title{1});       % only save the date of occurance, works!
         
     end
     
+%% Doing the histc for each instance
+
+[edges,~,i] = unique(event_name);
+date1 = datetime(edges);
+count = accumarray(i(:),1,[numel(edges),1]);
+instances1 = count;
+
+
 %% Two: Plot all of these instances of triggering on a timeseries plot
 
 % things I will probably want: x axis is date in day-mon-yr form, left y is
 % # of events on that day, right y is temperature maybe?
 
-% ONE: plot the N1
+%% ONE: plot the N1
+yyaxis left
 plot(date1,instances1)
+datetick('x', 'dd-mmm-yyyy')
+title('Weather & Number of Events Per Day')
 hold on
 
-% TWO: plot the N2
+%% TWO: plot the N2
+yyaxis left
 plot(date2,instances2)
+datetick('x', 'dd-mmm-yyyy')
 hold on
 
-% THREE: plot the N3
+%% THREE: plot the N3
+yyaxis left
 plot(date3,instances3)
+datetick('x', 'dd-mmm-yyyy')
 hold on
 
-% FOUR: plot the N4
+%% FOUR: plot the N4
+yyaxis left
 plot(date3,instances3)
+datetick('x', 'dd-mmm-yyyy')
 hold on
 
 %% Not a hardcode way of doing it
@@ -181,9 +199,12 @@ load('weather_data.mat');
 
 %% Works!
 yyaxis right 
-plot(datenum(weather_date), weather_avgC);
-title('Weather and Number of Events Per Day')
+%plot(datenum(weather_date), weather_avgC);
+plot(weather_date, weather_avgC);
+%title('Weather and Number of Events Per Day')
 datetick('x', 'dd-mmm-yyyy')
 ylabel('Average Temperature (C)')
-xlabel('Dates, 2020') 
-hold on
+xlabel('Dates, 2020')
+xlim('auto')
+legend('1 Node','2 Node','3 Node','4 Node','Avg Temp')
+hold off
