@@ -16,7 +16,7 @@ csv_dir2 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_
 csv_dir3 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N3/'
 csv_dir4 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N4/'
 
-%% LOOP to read in N1-N4 files
+%% LOOP to read in N1-N4 files (just change csv_dir# and run 4 times)
 %for nodenum=1:4
     
     %csv_dir=['csv_dir' num2str(nodenum)];
