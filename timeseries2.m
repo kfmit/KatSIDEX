@@ -133,11 +133,23 @@ standalone_GPS =[
  date4 = datetime(edges);
  instances4 = count;
  
- %%
+ %% Plot Each Instanc
+ % one
  yyaxis left
- scatter(date,instances)
+ scatter(date1,instances1,70,'red')
  hold on
 
+ % two
+  scatter(date2,instances2,70,'blue')
+ hold on
+ 
+ % three
+  scatter(date3,instances3,70,'green')
+ hold on
+ 
+ % four
+  scatter(date4,instances4,70,'black')
+ hold on
 
 %% Three: Plot all the instances WITH temperature data
 %% Weather data read in DONT RUN AGAIN
