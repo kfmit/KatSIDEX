@@ -108,46 +108,39 @@ end
 
 %event_name=char.empty(size(csv_files1),1);        % create empty array
 
+
 for nodeindex=[1:4]
     
-    csv_files=['csv_files' num2str(nodeindex)]      % change the name of the csv_file we're looking at
-    pause;                                         % just to check that its the right one
-    
-   %% internal for loop to pick apart names
-    for i=1:size(csv_files)
-        titlefile = csv_files(i).name;             % ith entry of event_name is a name from csv_files
-        divide_title = split(titlefile,'_');       % divid the name by the '_' character
-        event_name(i) = divide_title{1};       % only save the date of occurance
-        
-    end
-    
+    open_file=['csv_files' num2str(nodeindex)]      % change the name of the csv_file we're looking at
+    event_name = strings(size(open_file)); % change csv_files# as neede                                         % just to check that its the right one
 end
-%% Hardcode way of doing above
-event_name = strings(size(csv_files1)); % change csv_files# as needed
 
-    for i=1:size(csv_files1)
-        titlefile = csv_files1(i).name;             % ith entry of event_name is a name from csv_files
+%% 
+    for i=1:size(csv_files4)
+        titlefile = csv_files4(i).name;             % ith entry of event_name is a name from csv_files
         divide_title = split(titlefile,'_');       % divid the name by the '_' character
         event_name(i) = string(divide_title{1});       % only save the date of occurance, works!
         
     end
     
-%% Doing the histc for each instance
-
-[edges,~,i] = unique(event_name);
-date1 = datetime(edges);
-count = accumarray(i(:),1,[numel(edges),1]);
-instances1 = count;
+    % Doing the histc for each instance
+    
+    [edges,~,i] = unique(event_name);
+    count = accumarray(i(:),1,[numel(edges),1]);
+    
+    % Change below to match csv files
+    date = datetime(edges);
+    instances = count;
+    
+    yyaxis left
+    plot(date,instances)
+    hold on
 
 
 %% Two: Plot all of these instances of triggering on a timeseries plot
 
-% things I will probably want: x axis is date in day-mon-yr form, left y is
-% # of events on that day, right y is temperature maybe?
-
 %% ONE: plot the N1
-yyaxis left
-plot(date1,instances1)
+
 datetick('x', 'dd-mmm-yyyy')
 title('Weather & Number of Events Per Day')
 hold on
@@ -164,21 +157,6 @@ plot(date3,instances3)
 datetick('x', 'dd-mmm-yyyy')
 hold on
 
-%% FOUR: plot the N4
-yyaxis left
-plot(date3,instances3)
-datetick('x', 'dd-mmm-yyyy')
-hold on
-
-%% Not a hardcode way of doing it
-for nodeindex=1:4
-    
-    date=['date' num2str(nodeindex)];
-    instance=['instance' num2str(nodeindex)];
-    plot(date,instance)
-    hold on
-    
-end
 
 
 %% Three: Plot all the instances WITH temperature data
