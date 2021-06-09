@@ -34,129 +34,109 @@ standalone_GPS =[
      71.3299 -156.4016
      71.3345 -156.4165
      71.3333 -156.4081];
-Node_IDS=[103212,103637,103636,103208];
-Data_mat = zeros(1,4);
-
-% Note to self: may need to make an edit inside for loop for adding the offset onto the
-% epoch time to fix the errors
-
-%% Use loop to read in all data from files, Not needed for now
-% Expand if needed
-for ii=1:length(csv_files)
-    % read in data:
-    data_local=readtable([csv_files(ii).folder '/' csv_files(ii).name]);
-   % data_local(cellfun('isempty',data_local)) = {nan}
-    % parse variables names:
-    Var_names = data_local.Properties.VariableNames;
-
-    % prep the data matrix appropriately:
-    mat_len = size(Data_mat,1)+1;
-    
-    % STEPS TO FIX
-    % 1) cut off the first part of every csv time
-    % 2) add the offset to the epoch time
-    
-    local_len = length(data_local.ts)
-    %local_len = length(data_local.offset)
-    % orig: local_len = length(data_local.ts)
-    
-    %Data_mat(mat_len:mat_len+local_len,1:(length(Node_IDS))*3+1)=nan;
-    % put in time data:
-    time_posix=posixtime(datetime(data_local.ts,'InputFormat','yyyy-MM-dd HH:mm:ss.SSS'));
-    Data_mat(mat_len:mat_len+local_len-1,1)=time_posix(1:local_len);
-%figure(2)
-%hold on
-
-%% Loop to assign name values (doesn't work yet)
-    for kk=2:length(Var_names)                          % for the length of var_names
-        % get Node ID, direction, time delay, timestamp
-        % also add to node_IDS 
-        vars=strsplit(Var_names{kk},'_');
-        rowid=str2num(vars{2});
-        direction = vars{end}
-       
-        tstamp = str2num(vars{1}(2:end)) + str2num(['0.' vars{end-2}]);
-        if length(find(Node_IDS==rowid,1))<1
-            add to Node IDS
-            Node_IDS=[Node_IDS rowid];
-        end
-        insert data from column into appropriate part of Data_mat:
-        node_idx = find(Node_IDS==rowid,1);
-        
-        if direction == 'V'
-            mat_idx = (node_idx-1)*3 + 2;
-        elseif direction == 'L'
-            mat_idx = (node_idx-1)*3 + 3;
-        elseif direction == 'T'
-            mat_idx= (node_idx-1)*3+4;
-        end
-        mat_idx
-        %
-        insert into data matrix:
-        if ~isa(table2array(data_local(1,kk)),'double')
-            Data_mat(mat_len:mat_len+local_len-1,mat_idx) = str2double(table2array(data_local(1:local_len,kk)));
-            
-        else
-            Data_mat(mat_len:mat_len+local_len-1,mat_idx) = table2array(data_local(1:local_len,kk));
-        end
-        
-    end
-end
-
-%% Part 1.1: use the "csv_dir" names to establish points (datalocal has all the vlt for later)
-% Pull names
-
-%event_name=char.empty(size(csv_files1),1);        % create empty array
-
-
-for nodeindex=[1:4]
-    
-    open_file=['csv_files' num2str(nodeindex)]      % change the name of the csv_file we're looking at
-    event_name = strings(size(open_file)); % change csv_files# as neede                                         % just to check that its the right one
-end
-
-%% 
-    for i=1:size(csv_files4)
-        titlefile = csv_files4(i).name;             % ith entry of event_name is a name from csv_files
-        divide_title = split(titlefile,'_');       % divid the name by the '_' character
-        event_name(i) = string(divide_title{1});       % only save the date of occurance, works!
-        
-    end
-    
-    % Doing the histc for each instance
-    
-    [edges,~,i] = unique(event_name);
-    count = accumarray(i(:),1,[numel(edges),1]);
-    
-    % Change below to match csv files
-    date = datetime(edges);
-    instances = count;
-    
-    yyaxis left
-    plot(date,instances)
-    hold on
-
-
-%% Two: Plot all of these instances of triggering on a timeseries plot
-
-%% ONE: plot the N1
-
-datetick('x', 'dd-mmm-yyyy')
-title('Weather & Number of Events Per Day')
-hold on
-
-%% TWO: plot the N2
-yyaxis left
-plot(date2,instances2)
-datetick('x', 'dd-mmm-yyyy')
-hold on
-
-%% THREE: plot the N3
-yyaxis left
-plot(date3,instances3)
-datetick('x', 'dd-mmm-yyyy')
-hold on
-
+ Node_IDS=[103212,103637,103636,103208];
+ Data_mat = zeros(1,4);
+ 
+ % Note to self: may need to make an edit inside for loop for adding the offset onto the
+ % epoch time to fix the errors
+ 
+ %% Use loop to read in all data from files, Not needed for now
+ % Expand if needed
+ for ii=1:length(csv_files)
+     % read in data:
+     data_local=readtable([csv_files(ii).folder '/' csv_files(ii).name]);
+     % data_local(cellfun('isempty',data_local)) = {nan}
+     % parse variables names:
+     Var_names = data_local.Properties.VariableNames;
+     
+     % prep the data matrix appropriately:
+     mat_len = size(Data_mat,1)+1;
+     
+     % STEPS TO FIX
+     % 1) cut off the first part of every csv time
+     % 2) add the offset to the epoch time
+     
+     local_len = length(data_local.ts)
+     %local_len = length(data_local.offset)
+     % orig: local_len = length(data_local.ts)
+     
+     %Data_mat(mat_len:mat_len+local_len,1:(length(Node_IDS))*3+1)=nan;
+     % put in time data:
+     time_posix=posixtime(datetime(data_local.ts,'InputFormat','yyyy-MM-dd HH:mm:ss.SSS'));
+     Data_mat(mat_len:mat_len+local_len-1,1)=time_posix(1:local_len);
+     %figure(2)
+     %hold on
+     
+     %% Loop to assign name values (doesn't work yet)
+     for kk=2:length(Var_names)                          % for the length of var_names
+         % get Node ID, direction, time delay, timestamp
+         % also add to node_IDS
+         vars=strsplit(Var_names{kk},'_');
+         rowid=str2num(vars{2});
+         direction = vars{end}
+         
+         tstamp = str2num(vars{1}(2:end)) + str2num(['0.' vars{end-2}]);
+         if length(find(Node_IDS==rowid,1))<1
+             add to Node IDS
+             Node_IDS=[Node_IDS rowid];
+         end
+         insert data from column into appropriate part of Data_mat:
+         node_idx = find(Node_IDS==rowid,1);
+         
+         if direction == 'V'
+             mat_idx = (node_idx-1)*3 + 2;
+         elseif direction == 'L'
+             mat_idx = (node_idx-1)*3 + 3;
+         elseif direction == 'T'
+             mat_idx= (node_idx-1)*3+4;
+         end
+         mat_idx
+         %
+         insert into data matrix:
+         if ~isa(table2array(data_local(1,kk)),'double')
+             Data_mat(mat_len:mat_len+local_len-1,mat_idx) = str2double(table2array(data_local(1:local_len,kk)));
+             
+         else
+             Data_mat(mat_len:mat_len+local_len-1,mat_idx) = table2array(data_local(1:local_len,kk));
+         end
+         
+     end
+ end
+ 
+ %% Part 1.1: use the "csv_dir" names to establish points (datalocal has all the vlt for later)
+ % Pull names
+ 
+ %event_name=char.empty(size(csv_files1),1);        % create empty array
+ 
+ 
+ for nodeindex=[1:4]
+     
+     open_file=['csv_files' num2str(nodeindex)]      % change the name of the csv_file we're looking at
+     event_name = strings(size(open_file)); % change csv_files# as neede                                         % just to check that its the right one
+ end
+ 
+ %% Change the number of the file for each run
+ 
+ for i=1:size(csv_files4)
+     titlefile = csv_files4(i).name;             % ith entry of event_name is a name from csv_files
+     divide_title = split(titlefile,'_');       % divid the name by the '_' character
+     event_name(i) = string(divide_title{1});       % only save the date of occurance, works!
+     
+ end
+ 
+ % Doing the histc for each instance
+ 
+ [edges,~,i] = unique(event_name);
+ count = accumarray(i(:),1,[numel(edges),1]);
+ 
+ % Change below to match csv files
+ date4 = datetime(edges);
+ instances4 = count;
+ 
+ %%
+ yyaxis left
+ scatter(date,instances)
+ hold on
 
 
 %% Three: Plot all the instances WITH temperature data
