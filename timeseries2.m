@@ -6,23 +6,27 @@ clc
 clear
 close all
 
-% One: Import all of the csv from Sigicom2020
+%% One: Import all of the csv from Sigicom2020
 % At least their names, bc you can pull the timestamp from there
 % There are four folders within results_10 (N1-N4)
 %csv_dir = '~/Downloads/SIDEX/data/raw_transients/Data_sigicom_2020/Processed_Data/results_10s/N1/'
 
-csv_dir1 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N1/'
-csv_dir2 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N2/'
-csv_dir3 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N3/'
-csv_dir4 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N4/'
+csv_dir1 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N1/';
+csv_dir2 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N2/';
+csv_dir3 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N3/';
+csv_dir4 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N4/';
 
-%%
-for nodenum=1:4
+%% DO NOT RUN AGAIN, just load the .mat of the files
+%for nodenum=1:4
     
-    csv_dir=['csv_dir' num2str(nodenum)];
-    %csv_files = dir([csv_dir '*.csv']);
+    %csv_dir=['csv_dir' num2str(nodenum)];
+    %csv_name=['csv_files' num2str(nodenum)];
+    csv_files1 = dir([csv_dir1 '*.csv']);
+    csv_files2 = dir([csv_dir2 '*.csv']);
+    csv_files3 = dir([csv_dir3 '*.csv']);
+    csv_files4 = dir([csv_dir4 '*.csv']);
     
-end
+%end
 
 
 standalone_GPS =[
