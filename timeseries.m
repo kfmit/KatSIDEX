@@ -16,15 +16,15 @@ csv_dir2 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_
 csv_dir3 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N3/'
 csv_dir4 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N4/'
 
+%% LOOP to read in N1-N4 files
+%for nodenum=1:4
+    
+    %csv_dir=['csv_dir' num2str(nodenum)];
+    csv_files = dir([csv_dir '*.csv']);
+    
+%end
+
 %%
-for nodenum=1:4
-    
-    csv_dir=['csv_dir' num2str(nodenum)];
-    %csv_files = dir([csv_dir '*.csv']);
-    
-end
-
-
 standalone_GPS =[
      71.3357 -156.3982
      71.3299 -156.4016
@@ -36,7 +36,8 @@ Data_mat = zeros(1,4);
 % Note to self: may need to make an edit inside for loop for adding the offset onto the
 % epoch time to fix the errors
 
-%%
+%% READS IN ALL VLT data
+
 for ii=1:length(csv_files)
     % read in data:
     data_local=readtable([csv_files(ii).folder '/' csv_files(ii).name]);
