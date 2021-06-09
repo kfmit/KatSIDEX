@@ -40,7 +40,8 @@ Data_mat = zeros(1,4);
 % Note to self: may need to make an edit inside for loop for adding the offset onto the
 % epoch time to fix the errors
 
-%% Use loop to read in all data from files
+%% Use loop to read in all data from files, Not needed for now
+% Expand if needed
 for ii=1:length(csv_files)
     % read in data:
     data_local=readtable([csv_files(ii).folder '/' csv_files(ii).name]);
@@ -104,14 +105,21 @@ end
 
 %% Part 1.1: use the "csv_dir" names to establish points (datalocal has all the vlt for later)
 % Pull names
-eventimes=char.empty(size(csv_files),1);
 
-for i=1:size(csv_files)
-    eventtimes(i) = csv_files.name;
+event_name=char.empty(size(csv_files),1);        % create empty array
+for nodenum=1:4
+    
+    csv_files=['csv_files' num2str(nodenum)]      % change the name of the csv_file we're looking at
+    pause;                                         % just to check that its the right one
+    
+   %% internal for loop to pick apart names
+    for i=1:size(csv_files)
+        event_name(i) = csv_files(i).name;             % ith entry of event_name is a name from csv_files
+        
+        
+    end
     
 end
-        
-
 
 
 %% Two: Plot all of these instances of triggering on a timeseries plot
@@ -120,13 +128,30 @@ end
 % # of events on that day, right y is temperature maybe?
 
 % ONE: plot the N1
+plot(date1,instances1)
+hold on
 
 % TWO: plot the N2
+plot(date2,instances2)
+hold on
 
 % THREE: plot the N3
+plot(date3,instances3)
+hold on
 
 % FOUR: plot the N4
+plot(date3,instances3)
+hold on
 
+%% Not a hardcode way of doing it
+for nodenum=1:4
+    
+    date=['date' num2str(nodenum)];
+    instance=['instance' num2str(nodenum)];
+    plot(date,instance)
+    hold on
+    
+end
 
 
 %% Three: Plot all the instances WITH temperature data
@@ -147,7 +172,7 @@ load('weather_data.mat');
 
 yyaxis right 
 
-% This plots on my laptop but not on the large one, need to figure out why
+%% Works!
 yyaxis right 
 plot(datenum(weather_date), weather_avgC);
 title('Weather and Number of Events Per Day')
