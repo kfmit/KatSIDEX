@@ -114,7 +114,7 @@ for nodenum=1:4
     
    %% internal for loop to pick apart names
     for i=1:size(csv_files)
-        event_name(i) = csv_files(i).name;             % ith entry of event_name is a name from csv_files
+        title = csv_files(i).name;             % ith entry of event_name is a name from csv_files
         
         
     end
@@ -169,8 +169,6 @@ weather_avgC = (5/9)*(original_weather.Avg - 32);  % third column is AVG use thi
 %% WORKS: weather plotting, ONLY RUN THIS ONE
 
 load('weather_data.mat');
-
-yyaxis right 
 
 %% Works!
 yyaxis right 
