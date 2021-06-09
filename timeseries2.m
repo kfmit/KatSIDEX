@@ -106,22 +106,31 @@ end
 %% Part 1.1: use the "csv_dir" names to establish points (datalocal has all the vlt for later)
 % Pull names
 
-event_name=char.empty(size(csv_files),1);        % create empty array
-for nodenum=1:4
+%event_name=char.empty(size(csv_files1),1);        % create empty array
+
+for nodeindex=[1:4]
     
-    csv_files=['csv_files' num2str(nodenum)]      % change the name of the csv_file we're looking at
+    csv_files=['csv_files' num2str(nodeindex)]      % change the name of the csv_file we're looking at
     pause;                                         % just to check that its the right one
     
    %% internal for loop to pick apart names
     for i=1:size(csv_files)
         title = csv_files(i).name;             % ith entry of event_name is a name from csv_files
-        
+        divide_title = split(title,'_');       % divid the name by the '_' character
+        event_name(i) = divide_title{1};       % only save the date of occurance
         
     end
     
 end
+%% Hardcode way of doing above
 
-
+    for i=1:size(csv_files1)
+        title = csv_files1(i).name;             % ith entry of event_name is a name from csv_files
+        divide_title = split(title,'_');       % divid the name by the '_' character
+        event_name(i) = string(divide_title{1});       % only save the date of occurance
+        
+    end
+    
 %% Two: Plot all of these instances of triggering on a timeseries plot
 
 % things I will probably want: x axis is date in day-mon-yr form, left y is
@@ -144,10 +153,10 @@ plot(date3,instances3)
 hold on
 
 %% Not a hardcode way of doing it
-for nodenum=1:4
+for nodeindex=1:4
     
-    date=['date' num2str(nodenum)];
-    instance=['instance' num2str(nodenum)];
+    date=['date' num2str(nodeindex)];
+    instance=['instance' num2str(nodeindex)];
     plot(date,instance)
     hold on
     
