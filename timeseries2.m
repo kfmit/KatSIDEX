@@ -11,6 +11,7 @@ close all
 % There are four folders within results_10 (N1-N4)
 %csv_dir = '~/Downloads/SIDEX/data/raw_transients/Data_sigicom_2020/Processed_Data/results_10s/N1/'
 
+% alternate path: 40s overlap?
 csv_dir1 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N1/';
 csv_dir2 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N2/';
 csv_dir3 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N3/';
