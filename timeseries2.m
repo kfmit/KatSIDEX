@@ -152,6 +152,7 @@ standalone_GPS =[
  
  % four
   scatter(date4,log_instances4,70,'black')
+  ylabel('Log(Number of Events)')
  hold on
 
 %% Three: Plot all the instances WITH temperature data
