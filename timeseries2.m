@@ -12,10 +12,21 @@ close all
 %csv_dir = '~/Downloads/SIDEX/data/raw_transients/Data_sigicom_2020/Processed_Data/results_10s/N1/'
 
 % alternate path: 40s overlap?
-csv_dir1 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N1/';
-csv_dir2 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N2/';
-csv_dir3 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N3/';
-csv_dir4 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N4/';
+% 10s overlap: '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_10s/N1/'
+% On the BIGTOP
+
+csv_dir1 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_40s/N1/';
+csv_dir2 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_40s/N2/';
+csv_dir3 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_40s/N3/';
+csv_dir4 = '~/Downloads/SIDEX/data/box/Data_sigicom_2020/Processed_Data/results_40s/N4/';
+
+
+%% On my laptop
+%~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/results_40s/
+csv_dir1 = '~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/results_40s/N1/';
+csv_dir2 = '~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/results_40s/N2/';
+csv_dir3 = '~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/results_40s/N3/';
+csv_dir4 = '~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/results_40s/N4/';
 
 %% DO NOT RUN AGAIN, just load the .mat of the files
 %for nodenum=1:4
@@ -118,8 +129,8 @@ standalone_GPS =[
  
  %% Change the number of the file for each run
  
- for i=1:size(csv_files4)
-     titlefile = csv_files4(i).name;             % ith entry of event_name is a name from csv_files
+ for i=1:size(csv_files1)
+     titlefile = csv_files1(i).name;             % ith entry of event_name is a name from csv_files
      divide_title = split(titlefile,'_');       % divid the name by the '_' character
      event_name(i) = string(divide_title{1});       % only save the date of occurance, works!
      
@@ -131,9 +142,9 @@ standalone_GPS =[
  count = accumarray(i(:),1,[numel(edges),1]);
  
  % Change below to match csv files
- date4 = datetime(edges);
- instances4 = count;
- log_instances4= log10(instances4);
+ date1 = datetime(edges);
+ instances1 = count;
+ log_instances1= log10(instances1);
  
  
  %% Plot Each Instance
