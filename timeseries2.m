@@ -132,23 +132,26 @@ standalone_GPS =[
  % Change below to match csv files
  date4 = datetime(edges);
  instances4 = count;
+ log_instances4= log10(instances4);
  
- %% Plot Each Instanc
+ 
+ %% Plot Each Instance
  % one
  yyaxis left
- scatter(date1,instances1,70,'red')
+ datetick('x', 'dd-mmm-yyyy')
+ scatter(date1,log_instances1,70,'red')
  hold on
 
  % two
-  scatter(date2,instances2,70,'blue')
+  scatter(date2,log_instances2,70,'blue')
  hold on
  
  % three
-  scatter(date3,instances3,70,'green')
+  scatter(date3,log_instances3,70,'green')
  hold on
  
  % four
-  scatter(date4,instances4,70,'black')
+  scatter(date4,log_instances4,70,'black')
  hold on
 
 %% Three: Plot all the instances WITH temperature data
