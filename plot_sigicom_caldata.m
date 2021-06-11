@@ -4,7 +4,13 @@ clear all
 
 % set directory:
 % csv_dir = '~/data/sidex/sidex_2020_01_25/SigicomData/'
-csv_dir = '~/Downloads/SIDEX/data/raw_transients/Data_sigicom_2020/2510a436-69d3-4757-8f35-119bf88f566f/raw_transients/'
+%% RUN if on bigtop
+csv_dir = '~/Downloads/SIDEX/data/raw_transients/Data_sigicom_2020/Processed_Data/raw_transients/'
+
+%% RUN if on laptop
+csv_dir = '~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/raw_transients/'
+
+%%
 
 csv_files = dir([csv_dir '*.csv']);
 standalone_GPS =[
