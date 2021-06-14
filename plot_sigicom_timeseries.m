@@ -8,9 +8,9 @@ clear all
 csv_dir = '~/Downloads/SIDEX/data/raw_transients/Data_sigicom_2020/Processed_Data/raw_transients/'
 
 %% RUN if on laptop
-csv_dir = '~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/raw_transients'
+csv_dir = '~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/raw_transients/'
 
-%% Okay now pull all the info
+%% Okay now pull all the info, Saved as .mat!
 
 csv_files = dir([csv_dir '*.csv']);
 standalone_GPS =[
@@ -19,6 +19,9 @@ standalone_GPS =[
    71.3345 -156.4165
    71.3333 -156.4081];
 Node_IDS=[103212,103637,103636,103208];
+
+
+%%
 Data_mat = zeros(1,4);
 for ii=1:length(csv_files)
     % read in data:
