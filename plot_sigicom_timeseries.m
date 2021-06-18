@@ -26,17 +26,25 @@ Data_mat = zeros(1,4);
 for ii=1:length(csv_files)
     % read in data:
     data_local=readtable([csv_files(ii).folder '/' csv_files(ii).name]);
+    
+    %% take the name, split it up n apply offset
+    %1) pull the name of the csv_file
+    filenames=split(csv_files(ii).name,'_');
+    % 2) split it
+    start_time=str2double(filenames{1});
+    
    % data_local(cellfun('isempty',data_local)) = {nan}
     % parse variables names:
     Var_names = data_local.Properties.VariableNames;
 
-    % prep the data matrix appropriately:
+    % prep the data matrix appropriately to hold all:
     mat_len = size(Data_mat,1)+1;
     local_len = length(data_local.offset)
     % original: local_len = length(data_local.ts)
     
     %Data_mat(mat_len:mat_len+local_len,1:(length(Node_IDS))*3+1)=nan;
     % put in time data:
+    datetime(start_time, 'ConvertFrom', 'posixtime');
     time_posix=posixtime(datetime(data_local.offset,'InputFormat','yyyy-MM-dd HH:mm:ss.SSS'));
     Data_mat(mat_len:mat_len+local_len-1,1)=time_posix(1:local_len);
 %figure(2)
