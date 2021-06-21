@@ -183,6 +183,8 @@ weather_avgC = (5/9)*(original_weather.Avg - 32);  % third column is AVG use thi
 
 load('weather_data.mat');
 
+%% Temperature derivatives
+
 %% Works!
 yyaxis right 
 %plot(datenum(weather_date), weather_avgC);
@@ -194,3 +196,5 @@ xlabel('Dates, 2020')
 xlim('auto')
 legend('1 Node','2 Node','3 Node','4 Node','Avg Temp')
 hold off
+
+%% Plotting derivative
