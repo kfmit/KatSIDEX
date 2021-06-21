@@ -146,6 +146,10 @@ standalone_GPS =[
  instances1 = count;
  log_instances1= log10(instances1);
  
+%% Process in plot_sigicom_timeseries
+% save as a .mat, load here and plot over weather
+
+ 
  
  %% Plot Each Instance
  % one
@@ -185,6 +189,21 @@ load('weather_data.mat');
 
 %% Temperature derivatives
 
+% empty array for holding
+temp_derivs = double.empty(0,length(weather_avgC));
+nn_add = 1;
+% 
+
+for nn=2:length(weather_avgC)   % for finding diff
+    
+     temp_derivs(nn_add) = weather_avgC(nn)-weather_avgC(nn-1);
+     nn_add = nn_add+1;   
+        
+end
+    
+temp_derivs = transpose(temp_derivs);
+weather_deriv = weather_date(1:120);
+
 %% Works!
 yyaxis right 
 %plot(datenum(weather_date), weather_avgC);
@@ -198,3 +217,17 @@ legend('1 Node','2 Node','3 Node','4 Node','Avg Temp')
 hold off
 
 %% Plotting derivative
+% make the right axis the dT/dt (difference in avg temp each day), also
+% specify starting avg temp
+% make the left axis the whole plot? with also nodes?
+% x axis stays as the days it currently is
+
+yyaxis right
+plot(weather_deriv, temp_derivs);
+datetick('x', 'dd-mmm-yyyy')
+ylabel('Change in Temperature (C)')
+xlabel('Dates, 2020')
+xlim('auto')
+legend('1 Node','2 Node','3 Node','4 Node','$\frac{dT}{dt}$','Interpreter','latex')
+title('Temperature Effect on Events (10s Overlap)')
+hold off
