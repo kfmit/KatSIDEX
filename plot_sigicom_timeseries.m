@@ -12,7 +12,7 @@ csv_dir = '~/Downloads/SIDEx/data/Data_sigicom_2020/Processed_Data/raw_transient
 
 %% Okay now pull all the info, Saved as .mat!
 
-csv_files = dir([csv_dir '*.csv']);
+csv_files = dir([csv_dir '*.csv']); % csv_files has ALL the names of every .csv file in the dir
 standalone_GPS =[
      71.3357 -156.3982
      71.3299 -156.4016
@@ -23,15 +23,19 @@ Node_IDS=[103212,103637,103636,103208];
 
 %%
 Data_mat = zeros(1,4);
-for ii=1:length(csv_files)
+for ii=1:length(csv_files)      % FOR EVERY SINGLE FILE?
     % read in data:
-    data_local=readtable([csv_files(ii).folder '/' csv_files(ii).name]);
+    data_local=readtable([csv_files(ii).folder '/' csv_files(ii).name]); % only 
     
     %% take the name, split it up n apply offset
     %1) pull the name of the csv_file
+    
     filenames=split(csv_files(ii).name,'_');
+    
     % 2) split it
+    
     start_time=str2double(filenames{1});
+    start_time_posix=datetime(start_time, 'ConvertFrom', 'posixtime'); 
     
    % data_local(cellfun('isempty',data_local)) = {nan}
     % parse variables names:
@@ -39,16 +43,23 @@ for ii=1:length(csv_files)
 
     % prep the data matrix appropriately to hold all:
     mat_len = size(Data_mat,1)+1;
-    local_len = length(data_local.offset)
+    local_len = length(data_local.offset) % local_len(gth) of the timestamp file
     % original: local_len = length(data_local.ts)
     
     %Data_mat(mat_len:mat_len+local_len,1:(length(Node_IDS))*3+1)=nan;
+    % Note: data_local.offset is only the diff bt filename time and time of
+    % event
     % put in time data:
-    datetime(start_time, 'ConvertFrom', 'posixtime');
-    time_posix=posixtime(datetime(data_local.offset,'InputFormat','yyyy-MM-dd HH:mm:ss.SSS'));
+    
+    %time_posix=posixtime(datetime(data_local.offset,'InputFormat','yyyy-MM-dd HH:mm:ss.SSS'));
+    time_posix=start_time_posix - data_local.offset;
+    
+    % The Data_mat from mat_len(
     Data_mat(mat_len:mat_len+local_len-1,1)=time_posix(1:local_len);
+    
 %figure(2)
 %hold on
+% Internal Loop for assigning
     for kk=2:length(Var_names)
         % get Node ID, direction, time delay, timestamp
         % also add to node_IDS 
