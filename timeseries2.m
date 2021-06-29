@@ -151,24 +151,31 @@ standalone_GPS =[
 
  
  
- %% Plot Each Instance
+ %% Plot Each log Instance
  % one
  yyaxis left
+
  datetick('x', 'dd-mmm-yyyy')
- scatter(date1,log_instances1,70,'red')
+ %scatter(date1,instances1,70,'blue','o')
+ scatter(date1,instances1,70,'blue','o')
  hold on
 
  % two
-  scatter(date2,log_instances2,70,'blue')
+% scatter(date2,instances2,70,'blue','x')
+scatter(date2,instances2,70,'blue','x')
  hold on
  
  % three
-  scatter(date3,log_instances3,70,'green')
+% scatter(date3,instances3,70,'blue','s')
+  scatter(date3,instances3,70,'blue','s')
  hold on
  
  % four
-  scatter(date4,log_instances4,70,'black')
-  ylabel('Log(Number of Events)')
+% scatter(date4,instances4,70,'blue','^')
+  scatter(date4,instances4,70,'blue','^')
+  ylabel('Number of Events per Day by Node')
+  set(gca, 'YScale', 'log')
+  
  hold on
 
 %% Three: Plot all the instances WITH temperature data
@@ -229,5 +236,6 @@ ylabel('Change in Temperature (C)')
 xlabel('Dates, 2020')
 xlim('auto')
 legend('1 Node','2 Node','3 Node','4 Node','$\frac{dT}{dt}$','Interpreter','latex')
+
 title('Temperature Effect on Events (10s Overlap)')
 hold off
