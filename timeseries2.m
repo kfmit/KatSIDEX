@@ -266,7 +266,12 @@ title('Temperature Effect on Events (10s Overlap)')
 set(gca, 'FontSize',15)
 hold off
 
-%% one big code of subplotting
+%% one big code of subplotting part ONE
+
+subplot(2,1,1)
+% need a count of # of triggers per day dived by number of nodes?
+
+%% one big code of subplotting part TWO
 
 subplot(2,1,2) % dont respecify since holding ON
 
