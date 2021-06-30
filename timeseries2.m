@@ -156,6 +156,7 @@ standalone_GPS =[
  % one
  % yyaxis right
  
+% subplot(2,1,2) % dont respecify since holding ON
  
 xticks(weekticks)
  datetick('x', 'dd-mmm')
@@ -222,9 +223,12 @@ end
 temp_derivs = transpose(temp_derivs);
 weather_deriv = weather_date(1:120);
 
-%% Works!
-yyaxis left
+%% Works! Daily AVERAGE Temp
+
+%yyaxis left
 %plot(datenum(weather_date), weather_avgC);
+%subplot(2,1,2)
+
 plot(weather_date, weather_avgC);
 hold off
 %title('Weather and Number of Events Per Day')
@@ -261,3 +265,46 @@ legend('1 Node','2 Node','3 Node','4 Node','$\frac{dT}{dt}$','Interpreter','late
 title('Temperature Effect on Events (10s Overlap)')
 set(gca, 'FontSize',15)
 hold off
+
+%% one big code of subplotting
+
+subplot(2,1,2) % dont respecify since holding ON
+
+yyaxis right
+datetick('x', 'dd-mmm')
+%scatter(date1,instances1,70,'blue','o')
+scatter(date1,instances1,70,'blue','o')
+hold on
+
+% two
+% scatter(date2,instances2,70,'blue','x')
+scatter(date2,instances2,70,'red','x')
+hold on
+
+% three
+% scatter(date3,instances3,70,'blue','s')
+scatter(date3,instances3,70,'green','s')
+hold on
+
+% four
+% scatter(date4,instances4,70,'blue','^')
+scatter(date4,instances4,70,'black','^')
+ylabel('Number of Events Detected')
+hold on
+
+set(gca, 'YScale', 'log')
+
+yyaxis left
+plot(weather_date, weather_avgC);
+hold off
+%title('Weather and Number of Events Per Day')
+
+xticks(weekticks)
+datetick('x', 'dd-mmm','keepticks')
+ylabel('Average Temperature (°C)')
+xlabel('Dates, 2020')
+xlim('auto');
+%ax = gca;
+
+legend('Avg. Temp °C','1 Node','2 Node','3 Node','4 Node')  %,'Interpreter','latex')
+title('Events Detected by Node and Temperature')
