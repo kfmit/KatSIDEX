@@ -149,32 +149,37 @@ standalone_GPS =[
 %% Process in plot_sigicom_timeseries
 % save as a .mat, load here and plot over weather
 
- 
+
+
  
  %% Plot Each log Instance
  % one
- yyaxis left
-
- datetick('x', 'dd-mmm-yyyy')
+ % yyaxis right
+ 
+ 
+xticks(weekticks)
+ datetick('x', 'dd-mmm')
  %scatter(date1,instances1,70,'blue','o')
  scatter(date1,instances1,70,'blue','o')
  hold on
 
  % two
 % scatter(date2,instances2,70,'blue','x')
-scatter(date2,instances2,70,'blue','x')
+scatter(date2,instances2,70,'red','x')
  hold on
  
  % three
 % scatter(date3,instances3,70,'blue','s')
-  scatter(date3,instances3,70,'blue','s')
+  scatter(date3,instances3,70,'green','s')
  hold on
  
  % four
 % scatter(date4,instances4,70,'blue','^')
-  scatter(date4,instances4,70,'blue','^')
-  ylabel('Number of Events per Day by Node')
+  scatter(date4,instances4,70,'black','^')
+  ylabel('Number of Events Detected')
+
   set(gca, 'YScale', 'log')
+  
   
  hold on
 
@@ -189,6 +194,12 @@ weather_date = original_weather.Jan; %(:,1); % first column is datetime
 weather_maxC = (5/9)*(original_weather.Max - 32);  % second column is max
 weather_minC = (5/9)*(original_weather.Min - 32); % fourth column is the MIN temp
 weather_avgC = (5/9)*(original_weather.Avg - 32);  % third column is AVG use this one
+
+%% creating datetime array for weeks
+startdate = weather_date(1);
+enddate =  weather_date(121);
+weekticks = linspace(startdate,enddate,17);
+%weekticks = datenum(weekticks);
 
 %% WORKS: weather plotting, ONLY RUN THIS ONE
 
@@ -212,16 +223,26 @@ temp_derivs = transpose(temp_derivs);
 weather_deriv = weather_date(1:120);
 
 %% Works!
-yyaxis right 
+yyaxis left
 %plot(datenum(weather_date), weather_avgC);
 plot(weather_date, weather_avgC);
-%title('Weather and Number of Events Per Day')
-datetick('x', 'dd-mmm-yyyy')
-ylabel('Average Temperature (C)')
-xlabel('Dates, 2020')
-xlim('auto')
-legend('1 Node','2 Node','3 Node','4 Node','Avg Temp')
 hold off
+%title('Weather and Number of Events Per Day')
+
+xticks(weekticks)
+datetick('x', 'dd-mmm','keepticks')
+
+ylabel('Average Temperature (°C)')
+xlabel('Dates, 2020')
+xlim('auto');
+%ax = gca;
+
+yline(-10)
+yline(-20)
+legend('Avg. Temp °C','-10 °C', '-20 °C','1 Node','2 Node','3 Node','4 Node')  %,'Interpreter','latex')
+title('Events Detected by Node and Temperature')
+
+
 
 %% Plotting derivative
 % make the right axis the dT/dt (difference in avg temp each day), also
@@ -229,13 +250,14 @@ hold off
 % make the left axis the whole plot? with also nodes?
 % x axis stays as the days it currently is
 
-yyaxis right
+yyaxis left
 plot(weather_deriv, temp_derivs);
-datetick('x', 'dd-mmm-yyyy')
+datetick('x', 'dd-mmm-yyyy','keepticks')
 ylabel('Change in Temperature (C)')
 xlabel('Dates, 2020')
 xlim('auto')
 legend('1 Node','2 Node','3 Node','4 Node','$\frac{dT}{dt}$','Interpreter','latex')
 
 title('Temperature Effect on Events (10s Overlap)')
+set(gca, 'FontSize',15)
 hold off
