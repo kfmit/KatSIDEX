@@ -147,7 +147,39 @@ standalone_GPS =[
  log_instances1= log10(instances1);
  
 %% Process in plot_sigicom_timeseries
-% save as a .mat, load here and plot over weather
+% save as a .mat, load here and plot over weather, will need to re run
+% derivs if needed
+% use load(10s_logN1-N4.mat) 
+
+index1 = datefind(date1,weather_date);
+index2 = datefind(date2,weather_date);
+index3 = datefind(date3,weather_date);
+index4 = datefind(date4,weather_date);
+
+trigger1 =zeros(size(weather_date));
+trigger2 =zeros(size(weather_date));
+trigger3 =zeros(size(weather_date));
+trigger4 =zeros(size(weather_date));
+
+for ii = 1:size(index1)
+   nn = index1(ii);
+   trigger1(nn) = 1;
+end
+
+for ii = 1:size(index2)
+   nn = index2(ii);
+   trigger2(nn) = 2;
+end
+
+for ii = 1:size(index3)
+   nn = index3(ii);
+   trigger3(nn) = 3;
+end
+
+for ii = 1:size(index4)
+   nn = index4(ii);
+   trigger4(nn) = 4;
+end
 
 
 
@@ -270,8 +302,26 @@ hold off
 
 subplot(2,1,1)
 % need a count of # of triggers per day dived by number of nodes?
+scatter(weather_date,trigger1,70)
+hold on
+scatter(weather_date,trigger2,70)
+hold on
+scatter(weather_date,trigger3,70)
+hold on
+scatter(weather_date,trigger4,70)
 
-%% one big code of subplotting part TWO
+xticks(weekticks)
+datetick('x', 'dd-mmm','keepticks')
+ylabel('Number of Nodes Triggered')
+title('Nodes Triggered per Day, 10s Overlap')
+xlabel('Dates, 2020')
+ylim([0 5])
+xtickangle(45)
+set(gca, 'FontSize',12)
+xlim('auto');
+
+
+% one big code of subplotting part TWO
 
 subplot(2,1,2) % dont respecify since holding ON
 
@@ -309,7 +359,9 @@ datetick('x', 'dd-mmm','keepticks')
 ylabel('Average Temperature (°C)')
 xlabel('Dates, 2020')
 xlim('auto');
+xtickangle(45)
 %ax = gca;
 
 legend('Avg. Temp °C','1 Node','2 Node','3 Node','4 Node')  %,'Interpreter','latex')
-title('Events Detected by Node and Temperature')
+title('Number Events Detected by Node and Weather')
+set(gca, 'FontSize',12)
