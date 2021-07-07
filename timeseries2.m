@@ -301,7 +301,7 @@ hold off
 %% one big code of subplotting part ONE
 
 subplot(2,1,1)
-% need a count of # of triggers per day dived by number of nodes?
+% need a count of # of triggers per day dived by number of nodes?h
 scatter(weather_date,trigger1,70)
 hold on
 scatter(weather_date,trigger2,70)
