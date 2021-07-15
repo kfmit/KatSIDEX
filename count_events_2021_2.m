@@ -1,25 +1,30 @@
 % count events v. time, create detections w/ number of nodes.
 close all
 clear all
+clc
 
-%
+%% A block for saving to a .mat, already done
+
 %mat_out = '/media/efischell/Samsung_T5/events_metadata/';
 mydir1='*';
 nameout='pre0324_retest_pt2';
 %prefix = ['/media/efischell/Samsung_T5/2021_pre0324/' mydir1 '/'];
-mat_out = '/media/efischell/Samsung_T5/events_metadata_new2/';
-prefix = ['/media/efischell/Samsung_T5/2021_pre0324/' mydir1 '/'];
+%mat_out = '/media/efischell/Samsung_T5/events_metadata_new2/';
+mat_out = '/home/kfung/Downloads/SIDEx/data21';
+%prefix = ['/media/efischell/Samsung_T5/2021_pre0324/' mydir1 '/'];
+prefix = ['/home/kfung/Downloads/SIDEx/data21/SIDEx_2021_field_data/' mydir1 '/']
 min_select=9; % minimum number of detects needed to plot event; count event no matter what!
-mkdir(mat_out)
 
-% for all of the data in prefix/*/*.txt, detect events.
+%mkdir(mat_out)
+
+%% for all of the data in prefix/*/*.txt, detect events.
 %directory = dir([prefix 'Sidex_20210324T1718*'])%%404*.txt']);
 directory = dir([prefix 'Sidex_2021*.txt'])
 FS=1000; % sample rate
 ch_plot=1:32;%channels to plot
 N=size(directory);
 
-% for each file, get timestamp:
+%% for each file, get timestamp:
 epochs=[];
 set(0,'DefaultFigureVisible','off')
 for ii=1:N
@@ -40,7 +45,7 @@ for ii=14788:N
     cur_time = epochs(ii);
     elapsed = cur_time-e_start;
     
-    filename = [directory(ii).folder '/' directory(ii).name]
+%     filename = [directory(ii).folder '/' directory(ii).name]
     try 
         M = dlmread(filename, ',', 2, 0);
         cur_timevec=cur_time+(1:size(M,1))/FS;
@@ -121,7 +126,7 @@ for ii=14788:N
         end
         if length(event_ts)>0
             
-        % check for detections: first, get unique
+        %% check for detections: first, get unique
         % we'll look at 2 s at a time, so any events w/in 2 s are assumed similar
         bin_size = 2; % bin size in seconds
         event_ts_round = ceil((event_ts/FS)/bin_size)*bin_size*FS;
@@ -223,4 +228,6 @@ end
 
 end
 %% 
-save([mat_loc '../eventcounts_' nameout '.mat'],'event_times_all','event_numdetect_all','filenames_txt')
+save([mat_loc '../eventcounts_' nameout '.mat'],'event_times_all','event_numdetect_all','filenames_txt');
+
+%% Trying with the .mats saved
